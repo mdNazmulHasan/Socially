@@ -44,7 +44,7 @@ public class PostActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.post);
 
 		imgPreview = (ImageView) findViewById(R.id.previewIV);
 		statusET= (EditText) findViewById(R.id.msgET);

@@ -1,9 +1,11 @@
-package com.nerdcastle.nazmul.socially;
+package com.nerdcastle.nazmul.socially.Gateway;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.nerdcastle.nazmul.socially.Model.PostModel;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,7 @@ public class PostTableDataSource {
 
         contentValues.put("status", postModel.getmStatus());
         contentValues.put("photo", postModel.getmPhotopath());
+        contentValues.put("username", postModel.getUserName());
 
         return db.insert(DatabaseHelperClass.POST_TABLE_NAME, null,
                 contentValues);
@@ -53,6 +56,28 @@ public class PostTableDataSource {
 
         }
         return allPostList;
+    }
+    public ArrayList<PostModel> getAllPostByUser(String userName) {
+
+        ArrayList<PostModel> allPostListByUser = new ArrayList<PostModel>();
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor result = db.rawQuery("select * from (select * from post order by id desc) where username ='"+userName+ "'", null);
+        if (result.moveToFirst()) {
+            do {
+
+                int mId = result.getInt(0);
+                String status = result.getString(1);
+                String photo = result.getString(2);
+
+
+                PostModel postModel = new PostModel(mId,
+                        status, photo);
+                allPostListByUser.add(postModel);
+            } while (result.moveToNext());
+
+        }
+        return allPostListByUser;
     }
 
 }

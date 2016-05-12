@@ -2,8 +2,8 @@ package com.nerdcastle.nazmul.socially.Manager;
 
 import android.content.Context;
 
-import com.nerdcastle.nazmul.socially.PostModel;
-import com.nerdcastle.nazmul.socially.PostTableDataSource;
+import com.nerdcastle.nazmul.socially.Model.PostModel;
+import com.nerdcastle.nazmul.socially.Gateway.PostTableDataSource;
 
 import java.util.ArrayList;
 
@@ -25,5 +25,9 @@ public class PostTableManager {
     public ArrayList<PostModel> getAllPost(){
         postTableDataSource=new PostTableDataSource(context);
         return postTableDataSource.getAllPost();
+    }
+    public ArrayList<PostModel> getAllPostByUser(String userName){
+        postTableDataSource=new PostTableDataSource(context);
+        return postTableDataSource.getAllPostByUser(userName);
     }
 }

@@ -17,10 +17,10 @@
         android:layout_margin="20dp"
         android:orientation="vertical">
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="left"
-            android:src="@drawable/iid"
+            android:src="@drawable/nc"
             android:scaleType="fitCenter"/>
 
         <TextView
@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
+            android:textSize="15sp"
             android:text="status will be here"
             android:textColor="#000000" />
 

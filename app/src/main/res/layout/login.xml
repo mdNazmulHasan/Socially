@@ -8,36 +8,32 @@
     android:gravity="center"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="40sp"
+        android:src="@drawable/iid"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
         android:textColor="@color/colorPrimary"
-        android:text="Welcome"/>
+        android:textStyle="bold"
+        android:text="Sign In"/>
 
     <EditText
         android:id="@+id/userIdET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:hint="User ID" />
+        android:hint="User Name" />
 
-    <EditText
-        android:id="@+id/passwordET"
-        android:layout_width="match_parent"
+
+    <ImageButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="Password" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:textStyle="bold"
-        android:textColor="#ffffff"
-        android:background="@color/colorPrimary"
+        android:layout_marginTop="10dp"
         android:onClick="login"
-        android:id="@+id/loginBtn"/>
+        android:background="#ffffff"
+        android:src="@drawable/login"/>
 
 </LinearLayout>

@@ -7,8 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ListView;
 
-import com.nerdcastle.nazmul.socially.Manager.PostTableManager;
 import com.nerdcastle.nazmul.socially.Adapter.NewsFeedAdapter;
+import com.nerdcastle.nazmul.socially.Manager.PostTableManager;
 import com.nerdcastle.nazmul.socially.Model.PostModel;
 import com.nerdcastle.nazmul.socially.R;
 
@@ -38,5 +38,11 @@ public class NewsFeedActivity extends Activity {
         Intent newPostIntent=new Intent(this,PostActivity.class);
         newPostIntent.putExtra("userName",userName);
         startActivity(newPostIntent);
+    }
+
+    public void logout(View view){
+        Intent logoutIntent = new Intent(getApplicationContext(),
+                LoginActivity.class);
+        startActivity(logoutIntent);
     }
 }

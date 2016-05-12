@@ -33,12 +33,12 @@ public class LoginActivity extends Activity {
         String savedUserName2=sharedPref.getString("userName2","");
         String userNameSubmitted=userNameET.getText().toString();
         if(userNameSubmitted.equals(savedUserName1)){
-            Toast.makeText(LoginActivity.this, "login as NC", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "logged in as NC", Toast.LENGTH_SHORT).show();
             Intent loginIntent=new Intent(this,NewsFeedActivity.class);
             loginIntent.putExtra("userName",savedUserName1);
             startActivity(loginIntent);
         }else if(userNameSubmitted.equals(savedUserName2)){
-            Toast.makeText(LoginActivity.this, "login as IID", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "logged in as IID", Toast.LENGTH_SHORT).show();
             Intent loginIntent=new Intent(this,NewsFeedActivity.class);
             loginIntent.putExtra("userName",savedUserName2);
             startActivity(loginIntent);
@@ -47,4 +47,5 @@ public class LoginActivity extends Activity {
             Toast.makeText(LoginActivity.this, "User doesn't exist!Check again", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

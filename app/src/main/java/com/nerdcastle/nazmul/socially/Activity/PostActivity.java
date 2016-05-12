@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -186,5 +188,23 @@ public class PostActivity extends Activity {
         Intent postIntent = new Intent(this, NewsFeedActivity.class);
         postIntent.putExtra("userName",userName);
         startActivity(postIntent);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.logout:
+                Intent logoutIntent = new Intent(getApplicationContext(),
+                        LoginActivity.class);
+                startActivity(logoutIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

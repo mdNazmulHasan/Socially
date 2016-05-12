@@ -22,6 +22,7 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:scaleType="fitStart"
+        android:onClick="post"
         android:layout_marginTop="20dp"
         android:src="@drawable/post"/>
 

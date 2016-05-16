@@ -21,16 +21,18 @@ import java.util.ArrayList;
 public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
     ArrayList<PostModel> postModelArrayList;
     private Activity context;
+    private String userName;
 
 
     static class ViewHolder {
         public TextView mStatus;
         public ImageView image;
     }
-    public NewsFeedAdapter(Activity context,  ArrayList<PostModel> postModelArrayList) {
+    public NewsFeedAdapter(Activity context, ArrayList<PostModel> postModelArrayList, String userName) {
         super(context, R.layout.newsfeed_row ,postModelArrayList);
         this.postModelArrayList=postModelArrayList;
         this.context = context;
+        this.userName=userName;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -47,6 +49,7 @@ public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
             rowView.setTag(viewHolder);
         }
         ViewHolder holder = (ViewHolder) rowView.getTag();
+
         holder.mStatus.setText( ""+postModelArrayList.get(position).getmStatus());
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 14;

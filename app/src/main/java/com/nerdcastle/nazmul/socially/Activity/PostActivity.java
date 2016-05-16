@@ -17,8 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.nerdcastle.nazmul.socially.Manager.PostTableManager;
-import com.nerdcastle.nazmul.socially.Model.PostModel;
 import com.nerdcastle.nazmul.socially.R;
 
 import java.io.File;
@@ -180,14 +178,14 @@ public class PostActivity extends Activity {
     }
 
     public void post(View view) {
-        status = statusET.getText().toString();
+        /*status = statusET.getText().toString();
         photoPath = fileUri.getPath();
-        PostModel postModel = new PostModel(status, photoPath,userName);
+        //PostModel postModel = new PostModel(status, photoPath,userName);
         PostTableManager postTableManager = new PostTableManager(this);
         postTableManager.insertPost(postModel);
         Intent postIntent = new Intent(this, NewsFeedActivity.class);
         postIntent.putExtra("userName",userName);
-        startActivity(postIntent);
+        startActivity(postIntent);*/
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

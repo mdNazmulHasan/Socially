@@ -21,22 +21,21 @@ public class NewsFeedActivity extends Activity {
     ListView newsFeedLV;
     private ArrayList<PostModel> allPostList;
     NewsFeedAdapter newsFeedAdapter;
-    String userName;
+    int profileId;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newsfeed);
-        userName=getIntent().getStringExtra("userName");
-        userName=getIntent().getStringExtra("userName");
+        //userName=getIntent().getStringExtra("userName");
         newsFeedLV= (ListView) findViewById(R.id.newsFeedLV);
         PostTableManager postTableManager=new PostTableManager(this);
-        allPostList=postTableManager.getAllPostByUser(userName);
-        newsFeedAdapter=new NewsFeedAdapter(this,allPostList);
+        allPostList=postTableManager.getAllPost();
+        //newsFeedAdapter=new NewsFeedAdapter(this,allPostList,userName);
         newsFeedLV.setAdapter(newsFeedAdapter);
     }
     public void newPost(View view){
         Intent newPostIntent=new Intent(this,PostActivity.class);
-        newPostIntent.putExtra("userName",userName);
+        //newPostIntent.putExtra("userName",userName);
         startActivity(newPostIntent);
     }
 

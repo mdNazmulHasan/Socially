@@ -1,51 +1,47 @@
 package com.nerdcastle.nazmul.socially.Activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.nerdcastle.nazmul.socially.Manager.ProfileTableManager;
+import com.nerdcastle.nazmul.socially.Model.ConnectedProfileModel;
+import com.nerdcastle.nazmul.socially.Model.ProfileModel;
 import com.nerdcastle.nazmul.socially.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by po on 5/11/16.
  */
 public class LoginActivity extends Activity {
     EditText userNameET;
+    String userName;
+    private ArrayList<ConnectedProfileModel>allConnectedProfileList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         userNameET= (EditText) findViewById(R.id.userIdET);
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("userName1", "nc");
-        editor.putString("userName2", "iid");
-        editor.commit();
+
+
     }
     public void login(View view){
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        String savedUserName1=sharedPref.getString("userName1","");
-        String savedUserName2=sharedPref.getString("userName2","");
-        String userNameSubmitted=userNameET.getText().toString();
-        if(userNameSubmitted.equals(savedUserName1)){
-            Toast.makeText(LoginActivity.this, "logged in as NC", Toast.LENGTH_SHORT).show();
-            Intent loginIntent=new Intent(this,NewsFeedActivity.class);
-            loginIntent.putExtra("userName",savedUserName1);
-            startActivity(loginIntent);
-        }else if(userNameSubmitted.equals(savedUserName2)){
-            Toast.makeText(LoginActivity.this, "logged in as IID", Toast.LENGTH_SHORT).show();
-            Intent loginIntent=new Intent(this,NewsFeedActivity.class);
-            loginIntent.putExtra("userName",savedUserName2);
-            startActivity(loginIntent);
-
+        userName=userNameET.getText().toString();
+        ProfileTableManager profileTableManager=new ProfileTableManager(this);
+        ProfileModel profileModel=profileTableManager.getProfileByUserName(userName);
+        if(profileModel==null){
+            Toast.makeText(LoginActivity.this, "user doesn't exist, try again!", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(LoginActivity.this, "User doesn't exist!Check again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Logged in as "+profileModel.getName().toString(), Toast.LENGTH_SHORT).show();
+            Intent loginIntent=new Intent(this,NewsFeedActivity.class);
+            loginIntent.putExtra("userName",userName);
+            startActivity(loginIntent);
         }
+
     }
 
 }

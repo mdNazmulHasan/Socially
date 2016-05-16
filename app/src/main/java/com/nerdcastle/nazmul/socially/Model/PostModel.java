@@ -4,49 +4,36 @@ package com.nerdcastle.nazmul.socially.Model;
  * Created by po on 5/11/16.
  */
 public class PostModel {
-    public int mId;
-    public String mStatus;
-    public String mPhotopath;
-    public String userName;
+    private int postId;
+    private String mStatus;
+    private String mPhotopath;
+    private int profileId;
+    private String date;
 
-    public PostModel(int mId, String mStatus, String mPhotopath, String userName) {
-        this.mId = mId;
+    public PostModel(int postId, String mStatus, String mPhotopath, int profileId, String date) {
+        this.postId = postId;
         this.mStatus = mStatus;
         this.mPhotopath = mPhotopath;
-        this.userName = userName;
+        this.profileId = profileId;
+        this.date = date;
     }
 
-    public PostModel(String mStatus, String mPhotopath, String userName) {
+    public PostModel(String mStatus, String mPhotopath, int profileId, String date) {
         this.mStatus = mStatus;
         this.mPhotopath = mPhotopath;
-        this.userName = userName;
+        this.profileId = profileId;
+        this.date = date;
     }
 
-    public PostModel(int mId, String mStatus, String mPhotopath) {
-        this.mId = mId;
-        this.mStatus = mStatus;
-        this.mPhotopath = mPhotopath;
+    public PostModel() {
     }
 
-    public PostModel(String mStatus, String mPhotopath) {
-        this.mStatus = mStatus;
-        this.mPhotopath = mPhotopath;
+    public int getPostId() {
+        return postId;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public int getmId() {
-        return mId;
-    }
-
-    public void setmId(int mId) {
-        this.mId = mId;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     public String getmStatus() {
@@ -63,5 +50,21 @@ public class PostModel {
 
     public void setmPhotopath(String mPhotopath) {
         this.mPhotopath = mPhotopath;
+    }
+
+    public int getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(int profileId) {
+        this.profileId = profileId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

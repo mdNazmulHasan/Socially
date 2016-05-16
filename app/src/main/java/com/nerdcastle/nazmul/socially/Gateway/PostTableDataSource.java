@@ -20,7 +20,7 @@ public class PostTableDataSource {
         dbHelper = new DatabaseHelperClass(context);
     }
 
-    // Create diet into table
+
     public long insertPost(PostModel postModel) {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -28,7 +28,8 @@ public class PostTableDataSource {
 
         contentValues.put("status", postModel.getmStatus());
         contentValues.put("photo", postModel.getmPhotopath());
-        contentValues.put("username", postModel.getUserName());
+        contentValues.put("profileId", postModel.getProfileId());
+        contentValues.put("date", postModel.getDate());
 
         return db.insert(DatabaseHelperClass.POST_TABLE_NAME, null,
                 contentValues);
@@ -44,13 +45,13 @@ public class PostTableDataSource {
         if (result.moveToFirst()) {
             do {
 
-                int mId = result.getInt(0);
+                int postId = result.getInt(0);
                 String status = result.getString(1);
                 String photo = result.getString(2);
+                int profileId = result.getInt(3);
+                String date = result.getString(4);
 
-
-                PostModel postModel = new PostModel(mId,
-                        status, photo);
+                PostModel postModel=new PostModel(postId,status,photo,profileId,date);
                 allPostList.add(postModel);
             } while (result.moveToNext());
 
@@ -71,9 +72,9 @@ public class PostTableDataSource {
                 String photo = result.getString(2);
 
 
-                PostModel postModel = new PostModel(mId,
+                /*PostModel postModel = new PostModel(mId,
                         status, photo);
-                allPostListByUser.add(postModel);
+                allPostListByUser.add(postModel);*/
             } while (result.moveToNext());
 
         }

@@ -17,10 +17,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.nerdcastle.nazmul.socially.Manager.PostTableManager;
+import com.nerdcastle.nazmul.socially.Manager.ProfileTableManager;
+import com.nerdcastle.nazmul.socially.Model.PostModel;
+import com.nerdcastle.nazmul.socially.Model.ProfileModel;
 import com.nerdcastle.nazmul.socially.R;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -42,6 +48,9 @@ public class PostActivity extends Activity {
     private Uri fileUri;
 
     private ImageView imgPreview;
+    ProfileTableManager profileTableManager;
+    ProfileModel profileModel;
+    String date;
 
 
     @Override
@@ -65,6 +74,12 @@ public class PostActivity extends Activity {
                     Toast.LENGTH_LONG).show();
             finish();
         }
+        profileTableManager=new ProfileTableManager(this);
+        profileModel=profileTableManager.getProfileByUserName(userName);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar cal = Calendar.getInstance();
+        date=dateFormat.format(cal.getTime());
+        Toast.makeText(PostActivity.this, date, Toast.LENGTH_SHORT).show();
     }
 
     private boolean isDeviceSupportCamera() {
@@ -178,14 +193,16 @@ public class PostActivity extends Activity {
     }
 
     public void post(View view) {
-        /*status = statusET.getText().toString();
+        status = statusET.getText().toString();
         photoPath = fileUri.getPath();
-        //PostModel postModel = new PostModel(status, photoPath,userName);
+        int profileId=profileModel.getProfileId();
+
+        PostModel postModel = new PostModel(status, photoPath,profileId,date);
         PostTableManager postTableManager = new PostTableManager(this);
         postTableManager.insertPost(postModel);
         Intent postIntent = new Intent(this, NewsFeedActivity.class);
         postIntent.putExtra("userName",userName);
-        startActivity(postIntent);*/
+        startActivity(postIntent);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

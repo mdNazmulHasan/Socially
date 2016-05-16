@@ -41,7 +41,7 @@ public class PostTableDataSource {
         ArrayList<PostModel> allPostList = new ArrayList<PostModel>();
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor result = db.rawQuery("select * from post order by id desc", null);
+        Cursor result = db.rawQuery("select * from post order by postId desc", null);
         if (result.moveToFirst()) {
             do {
 
@@ -57,6 +57,29 @@ public class PostTableDataSource {
 
         }
         return allPostList;
+    }
+
+    public ArrayList<PostModel> getAllPostOfConnectedProfile(int profileId) {
+
+        ArrayList<PostModel> allConnectedPostList = new ArrayList<PostModel>();
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor result = db.rawQuery("select * from post where profileId In (select connectedProfileId from profileConnection where profileId ="+profileId+")", null);
+        if (result.moveToFirst()) {
+            do {
+
+                int postId = result.getInt(0);
+                String status = result.getString(1);
+                String photo = result.getString(2);
+                profileId = result.getInt(3);
+                String date = result.getString(4);
+
+                PostModel postModel=new PostModel(postId,status,photo,profileId,date);
+                allConnectedPostList.add(postModel);
+            } while (result.moveToNext());
+
+        }
+        return allConnectedPostList;
     }
     public ArrayList<PostModel> getAllPostByUser(String userName) {
 

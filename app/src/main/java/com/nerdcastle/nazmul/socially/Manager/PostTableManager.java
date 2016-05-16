@@ -30,4 +30,8 @@ public class PostTableManager {
         postTableDataSource=new PostTableDataSource(context);
         return postTableDataSource.getAllPostByUser(userName);
     }
+    public ArrayList<PostModel> getAllPostOfConnectedProfile(int profileId) {
+        postTableDataSource=new PostTableDataSource(context);
+        return postTableDataSource.getAllPostOfConnectedProfile(profileId);
+    }
 }

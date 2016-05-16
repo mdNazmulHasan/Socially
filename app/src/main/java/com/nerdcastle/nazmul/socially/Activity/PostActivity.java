@@ -200,7 +200,7 @@ public class PostActivity extends Activity {
         PostModel postModel = new PostModel(status, photoPath,profileId,date);
         PostTableManager postTableManager = new PostTableManager(this);
         postTableManager.insertPost(postModel);
-        Intent postIntent = new Intent(this, NewsFeedActivity.class);
+        Intent postIntent = new Intent(this, ProfileActivity.class);
         postIntent.putExtra("userName",userName);
         startActivity(postIntent);
     }

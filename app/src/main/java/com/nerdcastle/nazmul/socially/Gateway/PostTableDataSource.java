@@ -81,23 +81,23 @@ public class PostTableDataSource {
         }
         return allConnectedPostList;
     }
-    public ArrayList<PostModel> getAllPostByUser(String userName) {
+    public ArrayList<PostModel> getAllPostByUser(int profileId) {
 
         ArrayList<PostModel> allPostListByUser = new ArrayList<PostModel>();
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor result = db.rawQuery("select * from (select * from post order by id desc) where username ='"+userName+ "'", null);
+        Cursor result = db.rawQuery("select * from (select * from post order by postId desc) where profileId ="+profileId, null);
         if (result.moveToFirst()) {
             do {
 
-                int mId = result.getInt(0);
+                int postId = result.getInt(0);
                 String status = result.getString(1);
                 String photo = result.getString(2);
+                profileId = result.getInt(3);
+                String date = result.getString(4);
 
-
-                /*PostModel postModel = new PostModel(mId,
-                        status, photo);
-                allPostListByUser.add(postModel);*/
+                PostModel postModel=new PostModel(postId,status,photo,profileId,date);
+                allPostListByUser.add(postModel);
             } while (result.moveToNext());
 
         }

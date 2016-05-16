@@ -26,9 +26,9 @@ public class PostTableManager {
         postTableDataSource=new PostTableDataSource(context);
         return postTableDataSource.getAllPost();
     }
-    public ArrayList<PostModel> getAllPostByUser(String userName){
+    public ArrayList<PostModel> getAllPostByUser(int profileId){
         postTableDataSource=new PostTableDataSource(context);
-        return postTableDataSource.getAllPostByUser(userName);
+        return postTableDataSource.getAllPostByUser(profileId);
     }
     public ArrayList<PostModel> getAllPostOfConnectedProfile(int profileId) {
         postTableDataSource=new PostTableDataSource(context);

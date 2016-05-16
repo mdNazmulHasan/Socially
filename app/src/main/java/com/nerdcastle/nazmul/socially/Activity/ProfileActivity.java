@@ -17,10 +17,10 @@ import com.nerdcastle.nazmul.socially.R;
 import java.util.ArrayList;
 
 /**
- * Created by po on 5/12/16.
+ * Created by po on 5/16/16.
  */
-public class NewsFeedActivity extends Activity {
-    ListView newsFeedLV;
+public class ProfileActivity extends Activity {
+    ListView profileFeedLV;
     private ArrayList<PostModel> allPostList;
     NewsFeedAdapter newsFeedAdapter;
     String userName;
@@ -30,16 +30,16 @@ public class NewsFeedActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.newsfeed);
+        setContentView(R.layout.profile);
         userName=getIntent().getStringExtra("userName");
         profileTableManager=new ProfileTableManager(this);
         profileModel=profileTableManager.getProfileByUserName(userName);
         profileId=profileModel.getProfileId();
-        newsFeedLV= (ListView) findViewById(R.id.newsFeedLV);
+        profileFeedLV= (ListView) findViewById(R.id.profileFeedLV);
         PostTableManager postTableManager=new PostTableManager(this);
-        allPostList=postTableManager.getAllPostOfConnectedProfile(profileId);
+        allPostList=postTableManager.getAllPostByUser(profileId);
         newsFeedAdapter=new NewsFeedAdapter(this,allPostList,userName);
-        newsFeedLV.setAdapter(newsFeedAdapter);
+        profileFeedLV.setAdapter(newsFeedAdapter);
     }
     public void newPost(View view){
         Intent newPostIntent=new Intent(this,PostActivity.class);
@@ -52,9 +52,9 @@ public class NewsFeedActivity extends Activity {
                 LoginActivity.class);
         startActivity(logoutIntent);
     }
-    public void profile(View view){
-        Intent profileIntent=new Intent(this,ProfileActivity.class);
-        profileIntent.putExtra("userName",userName);
-        startActivity(profileIntent);
+    public void newsFeed(View view){
+        Intent newsIntent=new Intent(this,NewsFeedActivity.class);
+        newsIntent.putExtra("userName",userName);
+        startActivity(newsIntent);
     }
 }

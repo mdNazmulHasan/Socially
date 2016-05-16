@@ -17,7 +17,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
-                android:text="News Feed"
+                android:text="Profile"
                 android:gravity="center"
                 android:layout_weight="8"
                 android:background="@color/colorPrimary"
@@ -29,10 +29,10 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="right"
-                android:onClick="profile"
+                android:onClick="newsFeed"
                 android:layout_marginLeft="10dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/profile"/>
+                android:src="@drawable/feed"/>
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -51,7 +51,7 @@
             android:layout_weight="2" >
 
             <ListView
-                android:id="@+id/newsFeedLV"
+                android:id="@+id/profileFeedLV"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

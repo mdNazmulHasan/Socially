@@ -64,7 +64,7 @@ public class PostTableDataSource {
         ArrayList<PostModel> allConnectedPostList = new ArrayList<PostModel>();
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor result = db.rawQuery("select * from post where profileId In (select connectedProfileId from profileConnection where profileId ="+profileId+")", null);
+        Cursor result = db.rawQuery("select * from post where profileId In (select connectedProfileId from profileConnection where profileId ="+profileId+") or profileId ="+profileId +" order by postId desc", null);
         if (result.moveToFirst()) {
             do {
 

@@ -27,6 +27,7 @@ public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
     static class ViewHolder {
         public TextView mStatus;
         public ImageView image;
+        public ImageView logo;
     }
     public NewsFeedAdapter(Activity context, ArrayList<PostModel> postModelArrayList, String userName) {
         super(context, R.layout.newsfeed_row ,postModelArrayList);
@@ -44,11 +45,25 @@ public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.image = (ImageView) rowView
                     .findViewById(R.id.ivImage);
+            viewHolder.logo = (ImageView) rowView
+                    .findViewById(R.id.logoIV);
             viewHolder.mStatus= (TextView) rowView
                     .findViewById(R.id.statusTV);
             rowView.setTag(viewHolder);
         }
         ViewHolder holder = (ViewHolder) rowView.getTag();
+        int profileId=postModelArrayList.get(position).getProfileId();
+        if(profileId==1){
+            holder.logo.setImageResource(R.drawable.iid);
+        }else if(profileId==2){
+            holder.logo.setImageResource(R.drawable.child);
+        }else if(profileId==3){
+            holder.logo.setImageResource(R.drawable.jaago);
+        }else if(profileId==4){
+            holder.logo.setImageResource(R.drawable.brac);
+        }else if(profileId==5){
+            holder.logo.setImageResource(R.drawable.shakti);
+        }
 
         holder.mStatus.setText( ""+postModelArrayList.get(position).getmStatus());
         final BitmapFactory.Options options = new BitmapFactory.Options();

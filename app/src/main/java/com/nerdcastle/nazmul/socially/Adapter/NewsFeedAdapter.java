@@ -27,7 +27,8 @@ public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
     static class ViewHolder {
         public TextView mStatus;
         public ImageView image;
-        public ImageView logo;
+        public ImageView logoIV;
+        public TextView profileNameTV;
     }
     public NewsFeedAdapter(Activity context, ArrayList<PostModel> postModelArrayList, String userName) {
         super(context, R.layout.newsfeed_row ,postModelArrayList);
@@ -45,24 +46,31 @@ public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.image = (ImageView) rowView
                     .findViewById(R.id.ivImage);
-            viewHolder.logo = (ImageView) rowView
+            viewHolder.logoIV = (ImageView) rowView
                     .findViewById(R.id.logoIV);
             viewHolder.mStatus= (TextView) rowView
                     .findViewById(R.id.statusTV);
+            viewHolder.profileNameTV= (TextView) rowView
+                    .findViewById(R.id.profileNameTV);
             rowView.setTag(viewHolder);
         }
         ViewHolder holder = (ViewHolder) rowView.getTag();
         int profileId=postModelArrayList.get(position).getProfileId();
         if(profileId==1){
-            holder.logo.setImageResource(R.drawable.iid);
+            holder.logoIV.setImageResource(R.drawable.iid);
+            holder.profileNameTV.setText("IID");
         }else if(profileId==2){
-            holder.logo.setImageResource(R.drawable.child);
+            holder.logoIV.setImageResource(R.drawable.child);
+            holder.profileNameTV.setText("Save The Children");
         }else if(profileId==3){
-            holder.logo.setImageResource(R.drawable.jaago);
+            holder.logoIV.setImageResource(R.drawable.jaago);
+            holder.profileNameTV.setText("JAAGO");
         }else if(profileId==4){
-            holder.logo.setImageResource(R.drawable.brac);
+            holder.logoIV.setImageResource(R.drawable.brac);
+            holder.profileNameTV.setText("BRAC");
         }else if(profileId==5){
-            holder.logo.setImageResource(R.drawable.shakti);
+            holder.logoIV.setImageResource(R.drawable.shakti);
+            holder.profileNameTV.setText("Shakti");
         }
 
         holder.mStatus.setText( ""+postModelArrayList.get(position).getmStatus());

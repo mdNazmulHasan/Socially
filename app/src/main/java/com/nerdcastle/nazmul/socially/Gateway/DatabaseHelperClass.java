@@ -16,6 +16,7 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
     public static final String POST_COLUMN_PHOTO = "photo";
     public static final String POST_COLUMN_PROFILE_ID = "profileId";
     public static final String POST_COLUMN_DATE = "date";
+    public static final String POST_COLUMN_VIDEO = "video";
 
     public static final String PROFILE_TABLE_NAME = "profile";
     public static final String PROFILE_COLUMN_ID = "profileId";
@@ -30,7 +31,7 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
 
     public DatabaseHelperClass(Context context) {
         // TODO Auto-generated constructor stub
-        super(context, DATABASE_NAME, null, 3);
+        super(context, DATABASE_NAME, null, 4);
     }
 
     @Override
@@ -38,13 +39,13 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
         // TODO Auto-generated method stub
 
         db.execSQL("create table post"
-                + "(postId integer primary key,status text,photo text,profileId integer,date text)");
+                + "(postId integer primary key,status text,photo text,profileId integer,date text,video text)");
 
-        db.execSQL("create table profile"
+        /*db.execSQL("create table profile"
                 + "(profileId integer primary key,name text,userName text)");
 
         db.execSQL("create table profileConnection"
-                + "(profileId integer,connectedProfileId integer)");
+                + "(profileId integer,connectedProfileId integer)");*/
 
 
 
@@ -54,8 +55,8 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
         db.execSQL("DROP TABLE IF EXISTS post");
-        db.execSQL("DROP TABLE IF EXISTS profile");
-        db.execSQL("DROP TABLE IF EXISTS profileConnection");
+        /*db.execSQL("DROP TABLE IF EXISTS profile");
+        db.execSQL("DROP TABLE IF EXISTS profileConnection");*/
         onCreate(db);
     }
 

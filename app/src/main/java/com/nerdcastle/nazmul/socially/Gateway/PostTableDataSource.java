@@ -30,6 +30,7 @@ public class PostTableDataSource {
         contentValues.put("photo", postModel.getmPhotopath());
         contentValues.put("profileId", postModel.getProfileId());
         contentValues.put("date", postModel.getDate());
+        contentValues.put("video", postModel.getVideoPath());
 
         return db.insert(DatabaseHelperClass.POST_TABLE_NAME, null,
                 contentValues);
@@ -50,8 +51,9 @@ public class PostTableDataSource {
                 String photo = result.getString(2);
                 int profileId = result.getInt(3);
                 String date = result.getString(4);
+                String video = result.getString(5);
 
-                PostModel postModel=new PostModel(postId,status,photo,profileId,date);
+                PostModel postModel=new PostModel(postId,status,photo,profileId,date,video);
                 allPostList.add(postModel);
             } while (result.moveToNext());
 
@@ -73,8 +75,9 @@ public class PostTableDataSource {
                 String photo = result.getString(2);
                 profileId = result.getInt(3);
                 String date = result.getString(4);
+                String video = result.getString(5);
 
-                PostModel postModel=new PostModel(postId,status,photo,profileId,date);
+                PostModel postModel=new PostModel(postId,status,photo,profileId,date,video);
                 allConnectedPostList.add(postModel);
             } while (result.moveToNext());
 
@@ -95,8 +98,9 @@ public class PostTableDataSource {
                 String photo = result.getString(2);
                 profileId = result.getInt(3);
                 String date = result.getString(4);
+                String video = result.getString(5);
 
-                PostModel postModel=new PostModel(postId,status,photo,profileId,date);
+                PostModel postModel=new PostModel(postId,status,photo,profileId,date,video);
                 allPostListByUser.add(postModel);
             } while (result.moveToNext());
 

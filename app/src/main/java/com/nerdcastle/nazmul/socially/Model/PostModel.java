@@ -9,6 +9,39 @@ public class PostModel {
     private String mPhotopath;
     private int profileId;
     private String date;
+    private String videoPath;
+
+    public String getVideoPath() {
+        return videoPath;
+    }
+
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath;
+    }
+
+    public PostModel(String mStatus, String mPhotopath, int profileId, String date, String videoPath) {
+        this.mStatus = mStatus;
+        this.mPhotopath = mPhotopath;
+        this.profileId = profileId;
+        this.date = date;
+        this.videoPath = videoPath;
+    }
+
+    public PostModel(int postId, String mStatus, String mPhotopath, int profileId, String date, String videoPath) {
+        this.postId = postId;
+        this.mStatus = mStatus;
+        this.mPhotopath = mPhotopath;
+        this.profileId = profileId;
+        this.date = date;
+        this.videoPath = videoPath;
+    }
+
+    public PostModel(String mStatus, int profileId, String date, String videoPath) {
+        this.mStatus = mStatus;
+        this.profileId = profileId;
+        this.date = date;
+        this.videoPath = videoPath;
+    }
 
     public PostModel(int postId, String mStatus, String mPhotopath, int profileId, String date) {
         this.postId = postId;

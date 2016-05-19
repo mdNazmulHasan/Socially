@@ -2,29 +2,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:baselineAligned="false"
-    tools:context=".Activity.PostActivity" >
+    android:gravity="center"
+    android:onClick="setupUI"
+    android:orientation="vertical"
+    tools:context=".Activity.PostActivity">
+
     <EditText
-        android:layout_width="match_parent"
         android:id="@+id/msgET"
-        android:hint="what's on your mind"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:inputType="textMultiLine"/>
-    <ImageView
+        android:hint="what's on your mind"
+        android:inputType="textMultiLine" />
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:id="@+id/previewIV"
-        android:src="@drawable/camera"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/previewIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/camera" />
+
+        <VideoView
+            android:id="@+id/videoPreview"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp" />
+    </LinearLayout>
+
     <ImageView
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:scaleType="fitStart"
-        android:onClick="post"
         android:layout_marginTop="20dp"
-        android:src="@drawable/post"/>
+        android:onClick="post"
+        android:scaleType="fitStart"
+        android:src="@drawable/post" />
 
 
 </LinearLayout>

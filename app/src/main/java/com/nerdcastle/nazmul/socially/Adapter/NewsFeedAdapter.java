@@ -1,14 +1,25 @@
 package com.nerdcastle.nazmul.socially.Adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PixelFormat;
+import android.media.ThumbnailUtils;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.nerdcastle.nazmul.socially.Model.PostModel;
 import com.nerdcastle.nazmul.socially.R;
@@ -72,12 +83,42 @@ public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
             holder.logoIV.setImageResource(R.drawable.shakti);
             holder.profileNameTV.setText("Shakti");
         }
-
+        final String videoPath=postModelArrayList.get(position).getVideoPath();
         holder.mStatus.setText( ""+postModelArrayList.get(position).getmStatus());
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 14;
-        Bitmap bitmap= BitmapFactory.decodeFile(postModelArrayList.get(position).getmPhotopath(),options);
-        holder.image.setImageBitmap(bitmap);
+
+        if(videoPath != null && !videoPath.isEmpty()){
+            //Toast.makeText(context, "Video is here", Toast.LENGTH_SHORT).show();
+            Bitmap thumb = ThumbnailUtils.createVideoThumbnail(videoPath, MediaStore.Images.Thumbnails.MINI_KIND);
+
+            holder.image.setImageBitmap(thumb);
+            holder.image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Dialog dialog = new Dialog(context,R.style.TintTheme);
+                    dialog.setContentView(R.layout.video_layout);
+                    dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    VideoView myVideo = (VideoView) dialog.findViewById(R.id.videoPlayer);
+                    myVideo.setVideoPath(videoPath);
+                    MediaController mc = new MediaController(context);
+                    mc.setMediaPlayer(myVideo);
+                    mc.setAnchorView(myVideo);
+                    myVideo.setMediaController(mc);
+                    myVideo.requestFocus();
+                    myVideo.start();
+                    dialog.show();
+                }
+            });
+
+        }else{
+
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 14;
+            Bitmap bitmap= BitmapFactory.decodeFile(postModelArrayList.get(position).getmPhotopath(),options);
+            holder.image.setImageBitmap(bitmap);
+
+        }
+
+
         return rowView;
     }
 

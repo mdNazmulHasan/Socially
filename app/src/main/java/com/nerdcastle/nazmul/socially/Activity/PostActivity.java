@@ -12,16 +12,20 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.nerdcastle.nazmul.socially.Manager.PostTableManager;
 import com.nerdcastle.nazmul.socially.Manager.ProfileTableManager;
 import com.nerdcastle.nazmul.socially.Model.PostModel;
 import com.nerdcastle.nazmul.socially.Model.ProfileModel;
 import com.nerdcastle.nazmul.socially.R;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -40,7 +44,10 @@ public class PostActivity extends Activity {
     private EditText statusET;
     private String status;
     private String photoPath;
+    private String videoPath;
     String userName;
+    Boolean photoCapture=true;
+    PostModel postModel;
 
     // directory name to store captured images and videos
     private static final String IMAGE_DIRECTORY_NAME = "IID";
@@ -51,21 +58,31 @@ public class PostActivity extends Activity {
     ProfileTableManager profileTableManager;
     ProfileModel profileModel;
     String date;
+    private VideoView videoPreview;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post);
-        userName=getIntent().getStringExtra("userName");
+        userName = getIntent().getStringExtra("userName");
 
         imgPreview = (ImageView) findViewById(R.id.previewIV);
+        videoPreview= (VideoView) findViewById(R.id.videoPreview);
         statusET = (EditText) findViewById(R.id.msgET);
         imgPreview.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                captureImage();
+                createDialouge();
+
+            }
+        });
+        videoPreview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                createDialouge();
+                return false;
             }
         });
         if (!isDeviceSupportCamera()) {
@@ -74,12 +91,49 @@ public class PostActivity extends Activity {
                     Toast.LENGTH_LONG).show();
             finish();
         }
-        profileTableManager=new ProfileTableManager(this);
-        profileModel=profileTableManager.getProfileByUserName(userName);
+        profileTableManager = new ProfileTableManager(this);
+        profileModel = profileTableManager.getProfileByUserName(userName);
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Calendar cal = Calendar.getInstance();
-        date=dateFormat.format(cal.getTime());
-        Toast.makeText(PostActivity.this, date, Toast.LENGTH_SHORT).show();
+        date = dateFormat.format(cal.getTime());
+        //Toast.makeText(PostActivity.this, date, Toast.LENGTH_SHORT).show();
+    }
+
+    private void createDialouge() {
+        new LovelyStandardDialog(PostActivity.this, R.style.TintTheme)
+                .setTopColorRes(R.color.indigo)
+                .setButtonsColorRes(R.color.darkDeepOrange)
+                .setIcon(R.drawable.media)
+                .setTitle("Option")
+                .setMessage("If you want to post video press 'Capture Video' or 'Capture Photo' to post photo")
+                .setPositiveButton("Capture Photo", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        captureImage();
+                    }
+                })
+                .setNegativeButton("Capture Video", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        recordVideo();
+                    }
+                })
+                .show();
+    }
+
+    private void recordVideo() {
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+
+        fileUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);
+
+        // set video quality
+        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file
+        // name
+
+        // start the video capture Intent
+        startActivityForResult(intent, CAMERA_CAPTURE_VIDEO_REQUEST_CODE);
     }
 
     private boolean isDeviceSupportCamera() {
@@ -131,6 +185,40 @@ public class PostActivity extends Activity {
                         "Sorry! Failed to capture image", Toast.LENGTH_SHORT)
                         .show();
             }
+        } else if (requestCode == CAMERA_CAPTURE_VIDEO_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                // video successfully recorded
+                // preview the recorded video
+                previewVideo();
+                photoCapture=false;
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // user cancelled recording
+                Toast.makeText(getApplicationContext(),
+                        "User cancelled video recording", Toast.LENGTH_SHORT)
+                        .show();
+            } else {
+                // failed to record video
+                Toast.makeText(getApplicationContext(),
+                        "Sorry! Failed to record video", Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    }
+    /*
+	 * Previewing recorded video
+	 */
+    private void previewVideo() {
+        try {
+            // hide image preview
+            imgPreview.setVisibility(View.GONE);
+
+            videoPreview.setVisibility(View.VISIBLE);
+            videoPreview.setVideoPath(fileUri.getPath());
+            // start playing
+            videoPreview.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -162,8 +250,7 @@ public class PostActivity extends Activity {
     }
 
     private static File getOutputMediaFile(int type) {
-
-        // External sdcard location
+// External sdcard location
         File mediaStorageDir = new File(
                 Environment
                         .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
@@ -185,6 +272,9 @@ public class PostActivity extends Activity {
         if (type == MEDIA_TYPE_IMAGE) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator
                     + "IMG_" + timeStamp + ".jpg");
+        } else if (type == MEDIA_TYPE_VIDEO) {
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                    + "VID_" + timeStamp + ".mp4");
         } else {
             return null;
         }
@@ -194,21 +284,31 @@ public class PostActivity extends Activity {
 
     public void post(View view) {
         status = statusET.getText().toString();
-        photoPath = fileUri.getPath();
-        int profileId=profileModel.getProfileId();
+        int profileId = profileModel.getProfileId();
+        if(photoCapture){
+            photoPath = fileUri.getPath();
+            postModel = new PostModel(status, photoPath, profileId, date);
+        }else {
+            videoPath=fileUri.getPath();
+            postModel = new PostModel(status,profileId, date,videoPath);
+        }
 
-        PostModel postModel = new PostModel(status, photoPath,profileId,date);
+
+
+
         PostTableManager postTableManager = new PostTableManager(this);
         postTableManager.insertPost(postModel);
         Intent postIntent = new Intent(this, ProfileActivity.class);
-        postIntent.putExtra("userName",userName);
+        postIntent.putExtra("userName", userName);
         startActivity(postIntent);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -221,5 +321,24 @@ public class PostActivity extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void hideSoftKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+    }
+    public void setupUI(View view) {
+
+        if(!(view instanceof EditText)) {
+
+            view.setOnTouchListener(new View.OnTouchListener() {
+
+                public boolean onTouch(View v, MotionEvent event) {
+                    hideSoftKeyboard();
+                    return false;
+                }
+
+            });
+        }
+
     }
 }

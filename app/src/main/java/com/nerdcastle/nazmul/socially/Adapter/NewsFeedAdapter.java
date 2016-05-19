@@ -110,7 +110,7 @@ public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
             });
 
         }else{
-
+            holder.image.setOnClickListener(null);
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = 14;
             Bitmap bitmap= BitmapFactory.decodeFile(postModelArrayList.get(position).getmPhotopath(),options);

@@ -48,5 +48,21 @@ public class ProfileTableDataSource {
         }
         return profileModel;
     }
+    public ProfileModel getAllProfile() {
+        ProfileModel profileModel = null;
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor result = db.rawQuery("select * from profile ", null);
+        if (result.moveToFirst()) {
+            do {
+                int profileId = result.getInt(0);
+                String profleName = result.getString(1);
+                String profileUserName = result.getString(2);
+
+                profileModel = new ProfileModel(profileId,
+                        profleName, profileUserName);
+            } while (result.moveToNext());
+        }
+        return profileModel;
+    }
 
 }

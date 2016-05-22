@@ -4,37 +4,45 @@
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:background="#ffffff"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:gravity="center"
     android:onClick="setupUI"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical">
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/iid"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
-        android:text="Sign In"/>
+
 
     <EditText
         android:id="@+id/userIdET"
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:hint="User Name" />
 
 
-    <ImageButton
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:onClick="login"
-        android:background="#ffffff"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="#ffffff"
+        android:background="#4CAF50"
+        android:text="Sign In"
         android:src="@drawable/login"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/dummyBtn"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:onClick="dummy"
+        android:text="add dummy data"/>
 
 </LinearLayout>

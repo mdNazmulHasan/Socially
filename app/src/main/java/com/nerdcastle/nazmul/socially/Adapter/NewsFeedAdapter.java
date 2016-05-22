@@ -117,8 +117,6 @@ public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
             holder.image.setImageBitmap(bitmap);
 
         }
-
-
         return rowView;
     }
 

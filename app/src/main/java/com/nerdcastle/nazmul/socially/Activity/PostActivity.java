@@ -283,24 +283,43 @@ public class PostActivity extends Activity {
     }
 
     public void post(View view) {
-        status = statusET.getText().toString();
+        status = statusET.getText().toString().trim();
         int profileId = profileModel.getProfileId();
+        photoOrVideoPost(profileId);
+
+
+            if(status.length()>0|photoPath!=null|videoPath!=null) {
+                PostTableManager postTableManager = new PostTableManager(this);
+                postTableManager.insertPost(postModel);
+                Intent postIntent = new Intent(this, ProfileActivity.class);
+                postIntent.putExtra("userName", userName);
+                startActivity(postIntent);
+
+            }else {
+                Toast.makeText(PostActivity.this, "There is nothing to post", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+
+
+    }
+
+    private void photoOrVideoPost(int profileId) {
         if(photoCapture){
-            photoPath = fileUri.getPath();
-            postModel = new PostModel(status, photoPath, profileId, date);
+            try{
+                photoPath = fileUri.getPath();
+                postModel = new PostModel(status, photoPath, profileId, date);
+            }catch (Exception e){
+                postModel=new PostModel(status,profileId,date);
+
+            }
+
         }else {
+
             videoPath=fileUri.getPath();
             postModel = new PostModel(status,profileId, date,videoPath);
         }
-
-
-
-
-        PostTableManager postTableManager = new PostTableManager(this);
-        postTableManager.insertPost(postModel);
-        Intent postIntent = new Intent(this, ProfileActivity.class);
-        postIntent.putExtra("userName", userName);
-        startActivity(postIntent);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
 
     public DatabaseHelperClass(Context context) {
         // TODO Auto-generated constructor stub
-        super(context, DATABASE_NAME, null, 4);
+        super(context, DATABASE_NAME, null, 5);
     }
 
     @Override
@@ -41,11 +41,11 @@ public class DatabaseHelperClass extends SQLiteOpenHelper {
         db.execSQL("create table post"
                 + "(postId integer primary key,status text,photo text,profileId integer,date text,video text)");
 
-        /*db.execSQL("create table profile"
+        db.execSQL("create table profile"
                 + "(profileId integer primary key,name text,userName text)");
 
         db.execSQL("create table profileConnection"
-                + "(profileId integer,connectedProfileId integer)");*/
+                + "(profileId integer,connectedProfileId integer)");
 
 
 

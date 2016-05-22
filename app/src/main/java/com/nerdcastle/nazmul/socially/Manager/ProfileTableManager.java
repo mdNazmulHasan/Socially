@@ -25,4 +25,8 @@ public class ProfileTableManager {
         profileTableDataSource=new ProfileTableDataSource(context);
         return profileTableDataSource.getProfileByUserName(userName);
     }
+    public ProfileModel getAllProfile(){
+        profileTableDataSource=new ProfileTableDataSource(context);
+        return profileTableDataSource.getAllProfile();
+    }
 }

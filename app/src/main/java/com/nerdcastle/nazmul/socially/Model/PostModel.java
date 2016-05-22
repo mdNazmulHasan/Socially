@@ -51,6 +51,12 @@ public class PostModel {
         this.date = date;
     }
 
+    public PostModel(String mStatus, int profileId, String date) {
+        this.mStatus = mStatus;
+        this.profileId = profileId;
+        this.date = date;
+    }
+
     public PostModel(String mStatus, String mPhotopath, int profileId, String date) {
         this.mStatus = mStatus;
         this.mPhotopath = mPhotopath;

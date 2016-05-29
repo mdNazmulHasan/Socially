@@ -88,7 +88,7 @@ public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
 
         if(videoPath != null && !videoPath.isEmpty()){
             //Toast.makeText(context, "Video is here", Toast.LENGTH_SHORT).show();
-            Bitmap thumb = ThumbnailUtils.createVideoThumbnail(videoPath, MediaStore.Images.Thumbnails.MINI_KIND);
+            Bitmap thumb = ThumbnailUtils.createVideoThumbnail(videoPath, MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
 
             holder.image.setImageBitmap(thumb);
             holder.image.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +112,7 @@ public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
         }else{
             holder.image.setOnClickListener(null);
             final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = 14;
+            options.inSampleSize = 5;
             Bitmap bitmap= BitmapFactory.decodeFile(postModelArrayList.get(position).getmPhotopath(),options);
             holder.image.setImageBitmap(bitmap);
 

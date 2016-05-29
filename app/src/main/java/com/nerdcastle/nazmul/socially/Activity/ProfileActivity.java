@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.nerdcastle.nazmul.socially.Adapter.NewsFeedAdapter;
@@ -27,19 +28,41 @@ public class ProfileActivity extends Activity {
     ProfileModel profileModel;
     ProfileTableManager profileTableManager;
     int profileId;
+    ImageView logoImageView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+        viewInitialization();
         userName=getIntent().getStringExtra("userName");
         profileTableManager=new ProfileTableManager(this);
         profileModel=profileTableManager.getProfileByUserName(userName);
         profileId=profileModel.getProfileId();
-        profileFeedLV= (ListView) findViewById(R.id.profileFeedLV);
         PostTableManager postTableManager=new PostTableManager(this);
         allPostList=postTableManager.getAllPostByUser(profileId);
         newsFeedAdapter=new NewsFeedAdapter(this,allPostList,userName);
         profileFeedLV.setAdapter(newsFeedAdapter);
+
+        logoChange();
+    }
+
+    private void logoChange() {
+        if(profileId==1){
+            logoImageView.setImageResource(R.drawable.iid);
+        }else if(profileId==2){
+            logoImageView.setImageResource(R.drawable.child);
+        }else if(profileId==3){
+            logoImageView.setImageResource(R.drawable.jaago);
+        }else if(profileId==4){
+            logoImageView.setImageResource(R.drawable.brac);
+        }else if(profileId==5){
+            logoImageView.setImageResource(R.drawable.shakti);
+        }
+    }
+
+    private void viewInitialization() {
+        logoImageView= (ImageView) findViewById(R.id.logoIV);
+        profileFeedLV= (ListView) findViewById(R.id.profileFeedLV);
     }
     public void newPost(View view){
         Intent newPostIntent=new Intent(this,PostActivity.class);

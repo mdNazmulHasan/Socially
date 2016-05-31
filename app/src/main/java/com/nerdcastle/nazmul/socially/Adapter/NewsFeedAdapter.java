@@ -40,6 +40,10 @@ public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
         public ImageView image;
         public ImageView logoIV;
         public TextView profileNameTV;
+        public TextView likeHandlerText;
+        public TextView commentHandlerText;
+        public TextView likeAmountText;
+        public TextView commentAmountText;
     }
     public NewsFeedAdapter(Activity context, ArrayList<PostModel> postModelArrayList, String userName) {
         super(context, R.layout.newsfeed_row ,postModelArrayList);
@@ -63,6 +67,10 @@ public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
                     .findViewById(R.id.statusTV);
             viewHolder.profileNameTV= (TextView) rowView
                     .findViewById(R.id.profileNameTV);
+            viewHolder.commentAmountText= (TextView) rowView.findViewById(R.id.commentAmountText);
+            viewHolder.commentHandlerText= (TextView) rowView.findViewById(R.id.commentHandlerText);
+            viewHolder.likeAmountText= (TextView) rowView.findViewById(R.id.likeAmountText);
+            viewHolder.likeHandlerText= (TextView) rowView.findViewById(R.id.likeHandlerText);
             rowView.setTag(viewHolder);
         }
         ViewHolder holder = (ViewHolder) rowView.getTag();
@@ -117,6 +125,12 @@ public class NewsFeedAdapter extends ArrayAdapter<PostModel> {
             holder.image.setImageBitmap(bitmap);
 
         }
+        holder.likeHandlerText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"liked",Toast.LENGTH_LONG).show();
+            }
+        });
         return rowView;
     }
 

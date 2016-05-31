@@ -60,9 +60,58 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/ic_launcher" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:id="@+id/likeHandlerText"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/like"
+                android:text="like"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:gravity="right"
+                android:id="@+id/commentHandlerText"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/comment"
+                android:text="comment"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/likeAmountText"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                android:drawablePadding="10dp"
+                android:text="7"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/commentAmountText"
+                android:paddingLeft="10dp"
+                android:gravity="right"
+                android:drawablePadding="10dp"
+                android:text="5"/>
+        </LinearLayout>
+
 
 
     </LinearLayout>
+
 
 
     </android.support.v7.widget.CardView>
